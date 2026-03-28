@@ -296,8 +296,24 @@ function closeTutorial() {
 
 function startGame() {
     closeTutorial();
+    
+    // Resetar dados do jogo para começar do zero
+    gameData.currentRound = 1;
+    gameData.totalRounds = 8;
+    gameData.playerName = 'CEO';
+    gameData.metrics = {
+        profit: 1000,
+        impact: 50,
+        team: 60
+    };
+    gameData.history = [];
+    
+    // Limpar notícias
+    document.getElementById('news-feed').innerHTML = '<p class="news-item">Bem-vindo ao jogo!</p>';
+    
     askPlayerName();
     renderScenario();
+    updateMetricsDisplay();
 }
 
 function askPlayerName() {
@@ -565,17 +581,24 @@ function saveGame() {
 function loadGame() {
     // Carregar leaderboard global primeiro
     loadLeaderboard();
+    updateLeaderboardMini();
     
     const saved = localStorage.getItem('ecoStartupTycoonGame');
     if (saved) {
+        // Se tem jogo salvo, verifica se é um jogo completo ou em andamento
         const loaded = JSON.parse(saved);
-        Object.assign(gameData, loaded);
-        renderScenario();
-        updateMetricsDisplay();
-        updateLeaderboardMini();
+        
+        // Se é um jogo em andamento (currentRound <= 8), carrega
+        if (loaded.currentRound && loaded.currentRound <= 8) {
+            Object.assign(gameData, loaded);
+            renderScenario();
+            updateMetricsDisplay();
+        } else {
+            // Se é um jogo completo, mostra tutorial novamente
+            showTutorial();
+        }
     } else {
-        // Primeira vez jogando - mostrar tutorial
-        updateLeaderboardMini();
+        // Primeira vez - mostrar tutorial
         showTutorial();
     }
 }
