@@ -541,10 +541,18 @@ html, body {
 
 /* ==================== TUTORIAL MODAL ==================== */
 
+.modal.active {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
 .tutorial-content {
     max-width: 600px !important;
     padding: 0 !important;
-    overflow: hidden;
+    overflow: visible !important;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .tutorial-header {
@@ -692,13 +700,16 @@ html, body {
     padding: 30px;
     border-top: 1px solid var(--border);
     background: rgba(255, 255, 255, 0.02);
+    display: flex !important;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .slide-indicators {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 0 !important;
 }
 
 .indicator {
@@ -722,7 +733,7 @@ html, body {
 }
 
 .tutorial-buttons {
-    display: flex;
+    display: flex !important;
     gap: 10px;
     justify-content: center;
 }
