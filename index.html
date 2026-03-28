@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoStartup Tycoon - Jogo de Sustentabilidade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🌱</span>
+                <h1>EcoStartup Tycoon</h1>
+            </div>
+            <div class="round-indicator">
+                <span id="round-text">Rodada <span id="current-round">1</span>/8</span>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <main class="game-container">
+            <!-- Left Panel: Metrics -->
+            <section class="metrics-panel">
+                <h2>Sua Startup</h2>
+                
+                <div class="metric-card metric-profit">
+                    <div class="metric-header">
+                        <span class="metric-icon">💰</span>
+                        <span class="metric-label">Lucro</span>
+                    </div>
+                    <div class="metric-value" id="profit-value">1000</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="profit-bar" style="width: 50%"></div>
+                    </div>
+                    <div class="metric-details">
+                        <span id="profit-status">Saudável</span>
+                        <span id="profit-change" class="change">+0</span>
+                    </div>
+                </div>
+
+                <div class="metric-card metric-impact">
+                    <div class="metric-header">
+                        <span class="metric-icon">🌍</span>
+                        <span class="metric-label">Impacto Ambiental</span>
+                    </div>
+                    <div class="metric-value" id="impact-value">50</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="impact-bar" style="width: 25%"></div>
+                    </div>
+                    <div class="metric-details">
+                        <span id="impact-status">Neutro</span>
+                        <span id="impact-change" class="change">+0</span>
+                    </div>
+                </div>
+
+                <div class="metric-card metric-team">
+                    <div class="metric-header">
+                        <span class="metric-icon">👥</span>
+                        <span class="metric-label">Satisfação da Equipe</span>
+                    </div>
+                    <div class="metric-value" id="team-value">60</div>
+                    <div class="metric-bar">
+                        <div class="metric-fill" id="team-bar" style="width: 60%"></div>
+                    </div>
+                    <div class="metric-details">
+                        <span id="team-status">Motivada</span>
+                        <span id="team-change" class="change">+0</span>
+                    </div>
+                </div>
+
+                <!-- Leaderboard Mini -->
+                <div class="leaderboard-mini">
+                    <h3>🏆 Top 5</h3>
+                    <div class="leaderboard-list" id="leaderboard-mini">
+                        <!-- Preenchido por JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Center Panel: Decision -->
+            <section class="decision-panel">
+                <div class="decision-header">
+                    <h2 id="scenario-title">Cenário</h2>
+                    <p id="scenario-description">Descrição do cenário</p>
+                </div>
+
+                <div class="decision-options" id="decision-options">
+                    <!-- Preenchido por JS -->
+                </div>
+
+                <div class="game-status" id="game-status" style="display: none;">
+                    <h3 id="game-message">Parabéns!</h3>
+                    <button class="btn btn-primary" id="restart-btn">Jogar Novamente</button>
+                </div>
+            </section>
+
+            <!-- Right Panel: Info & History -->
+            <section class="info-panel">
+                <div class="info-card">
+                    <h3>📊 ODS da Rodada</h3>
+                    <p id="ods-info">Objetivo de Desenvolvimento Sustentável</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>📰 Últimas Notícias</h3>
+                    <div class="news-feed" id="news-feed">
+                        <p class="news-item">Bem-vindo ao jogo!</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>🎯 Dicas</h3>
+                    <p id="tip-text">Equilibre as três métricas para ganhar!</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- Full Leaderboard (Modal) -->
+        <div class="modal" id="leaderboard-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🏆 Ranking Global</h2>
+                    <button class="close-btn" onclick="closeLeaderboard()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <table class="leaderboard-table" id="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Posição</th>
+                                <th>Jogador</th>
+                                <th>Score</th>
+                                <th>Categoria</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-tbody">
+                            <!-- Preenchido por JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
