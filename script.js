@@ -588,8 +588,9 @@ function loadGame() {
         // Se tem jogo salvo, verifica se é um jogo completo ou em andamento
         const loaded = JSON.parse(saved);
         
-        // Se é um jogo em andamento (currentRound <= 8), carrega
-        if (loaded.currentRound && loaded.currentRound <= 8) {
+        // Se é um jogo em andamento (currentRound < 8), carrega
+        // Se currentRound é 8 ou maior, é um jogo completo - mostra tutorial
+        if (loaded.currentRound && loaded.currentRound < 8) {
             Object.assign(gameData, loaded);
             renderScenario();
             updateMetricsDisplay();
