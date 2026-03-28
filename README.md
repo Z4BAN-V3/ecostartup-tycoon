@@ -132,3 +132,66 @@ Tem sugestões? Encontrou um bug? Abra uma issue no GitHub!
 ---
 
 **Lembre-se**: Sustentabilidade não é apenas ambiental — é também social e econômica. Tudo está conectado! 🌍
+
+# 🎉 Novas Funcionalidades: Tutorial + Ranking Persistente
+
+## **O que foi adicionado:**
+
+### **1. Tutorial Interativo** 🎮
+- 4 slides de apresentação quando o jogo é aberto pela primeira vez
+- Explica o objetivo, as 3 métricas e como jogar
+- Navegação com botões "Anterior" e "Próximo"
+- Após tutorial → pede nome do CEO → começa o jogo
+
+### **2. Ranking Persistente** 🏆
+Agora **cada jogador fica registrado permanentemente**!
+
+**Como funciona:**
+1. Pessoa 1 (Lara) joga → termina → vai para o ranking
+2. Pessoa 2 joga → termina → vai para o ranking
+3. O ranking ordena por **score (maior primeiro)**
+4. Cada entrada mostra:
+   - Posição (#1, #2, #3...)
+   - Nome do jogador
+   - Data que jogou
+   - Score final
+   - Categoria (Unicórnio, Green Leader, etc)
+
+**Dados salvos:**
+- Nome do jogador
+- Score final
+- Categoria
+- Data do jogo
+- Métricas finais (Lucro, Impacto, Equipe)
+
+**Compartilhado entre:**
+- Todos os navegadores que acessam o jogo
+- Todos os players no mesmo PC/navegador
+- Dados persistem mesmo fechando o navegador
+
+### **3. Visual Melhorado**
+Ao terminar o jogo:
+- Mostra a **posição no ranking** (#1, #2, #3...)
+- Mostra a data do jogo no ranking
+- Botão para "Ver Ranking" na tela de resultado
+
+---
+
+## **Como Testar:**
+
+1. **Primeira vez:**
+   - Abra o jogo
+   - Vê o tutorial
+   - Clica "Vamos Jogar!"
+   - Coloca seu nome (ex: "Lara")
+   - Joga todas as 8 rodadas
+   - Vê o resultado e sua posição no ranking
+
+2. **Segunda vez (outro jogador):**
+   - Abra o jogo (em outro navegador ou limpar dados)
+   - Pula o tutorial (já tá salvo)
+   - Coloca nome diferente (ex: "João")
+   - Joga
+   - Vê que ambos estão no ranking!
+
+---

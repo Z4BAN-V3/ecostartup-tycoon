@@ -9,15 +9,18 @@ const gameData = {
         impact: 50,
         team: 60
     },
-    history: [],
-    leaderboard: [
-        { name: 'Alpha CEO', score: 2500, category: 'Balanced' },
-        { name: 'Green Leader', score: 2400, category: 'Impactful' },
-        { name: 'Profit King', score: 2300, category: 'Lucrative' },
-        { name: 'Team Player', score: 2200, category: 'Team-Focused' },
-        { name: 'Beta CEO', score: 2100, category: 'Innovative' }
-    ]
+    history: []
 };
+
+// ==================== LEADERBOARD GLOBAL ====================
+
+let globalLeaderboard = [
+    { name: 'Alpha CEO', score: 2500, category: 'Balanced', date: '2026-03-20', profitFinal: 1200, impactFinal: 120, teamFinal: 140 },
+    { name: 'Green Leader', score: 2400, category: 'Green Leader', date: '2026-03-21', profitFinal: 800, impactFinal: 150, teamFinal: 100 },
+    { name: 'Profit King', score: 2300, category: 'Unicórnio', date: '2026-03-22', profitFinal: 1800, impactFinal: -20, teamFinal: 50 },
+    { name: 'Team Player', score: 2200, category: 'Team Champion', date: '2026-03-23', profitFinal: 950, impactFinal: 80, teamFinal: 180 },
+    { name: 'Beta CEO', score: 2100, category: 'Balanced', date: '2026-03-24', profitFinal: 1100, impactFinal: 100, teamFinal: 120 }
+];
 
 const scenarios = [
     {
@@ -230,13 +233,71 @@ const scenarios = [
     }
 ];
 
-// ==================== GAME FUNCTIONS ====================
+// ==================== TUTORIAL FUNCTIONS ====================
 
-function initGame() {
-    renderScenario();
-    updateMetricsDisplay();
-    updateLeaderboardMini();
+let currentTutorialSlide = 1;
+
+function showTutorial() {
+    const modal = document.getElementById('tutorial-modal');
+    modal.classList.add('active');
+}
+
+function goToSlide(slideNumber) {
+    // Esconder todos os slides
+    document.querySelectorAll('.tutorial-slide').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    
+    // Mostrar slide selecionado
+    document.getElementById(`slide-${slideNumber}`).classList.add('active');
+    
+    // Atualizar indicadores
+    document.querySelectorAll('.indicator').forEach((ind, idx) => {
+        ind.classList.toggle('active', idx === slideNumber - 1);
+    });
+    
+    // Atualizar botões
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const startBtn = document.getElementById('start-btn');
+    
+    if (slideNumber === 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'block';
+        startBtn.style.display = 'none';
+    } else if (slideNumber === 4) {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'none';
+        startBtn.style.display = 'block';
+    } else {
+        prevBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+        startBtn.style.display = 'none';
+    }
+    
+    currentTutorialSlide = slideNumber;
+}
+
+function nextSlide() {
+    if (currentTutorialSlide < 4) {
+        goToSlide(currentTutorialSlide + 1);
+    }
+}
+
+function prevSlide() {
+    if (currentTutorialSlide > 1) {
+        goToSlide(currentTutorialSlide - 1);
+    }
+}
+
+function closeTutorial() {
+    document.getElementById('tutorial-modal').classList.remove('active');
+}
+
+function startGame() {
+    closeTutorial();
     askPlayerName();
+    renderScenario();
 }
 
 function askPlayerName() {
@@ -354,18 +415,64 @@ function addNews(message) {
     }
 }
 
+// ==================== LEADERBOARD FUNCTIONS ====================
+
+function loadLeaderboard() {
+    const saved = localStorage.getItem('ecoStartupTycoonLeaderboard');
+    if (saved) {
+        globalLeaderboard = JSON.parse(saved);
+    }
+}
+
+function saveLeaderboard() {
+    localStorage.setItem('ecoStartupTycoonLeaderboard', JSON.stringify(globalLeaderboard));
+}
+
 function updateLeaderboardMini() {
     const leaderboardMini = document.getElementById('leaderboard-mini');
-    leaderboardMini.innerHTML = '';
+    if (!leaderboardMini) return;
     
-    gameData.leaderboard.slice(0, 5).forEach((player, index) => {
+    leaderboardMini.innerHTML = '<h3>🏆 Top 5</h3>';
+    const leaderboardList = document.createElement('div');
+    leaderboardList.className = 'leaderboard-list';
+    
+    // Ordenar por score (decrescente)
+    const sorted = [...globalLeaderboard].sort((a, b) => b.score - a.score).slice(0, 5);
+    
+    sorted.forEach((player, index) => {
         const item = document.createElement('div');
         item.className = 'leaderboard-item';
         item.innerHTML = `
             <span class="leaderboard-name">${index + 1}. ${player.name}</span>
             <span class="leaderboard-score">${player.score}</span>
         `;
-        leaderboardMini.appendChild(item);
+        leaderboardList.appendChild(item);
+    });
+    
+    leaderboardMini.appendChild(leaderboardList);
+}
+
+function updateLeaderboard() {
+    const tbody = document.getElementById('leaderboard-tbody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    // Ordenar por score (decrescente)
+    const sorted = [...globalLeaderboard].sort((a, b) => b.score - a.score);
+    
+    sorted.forEach((player, index) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="rank">#${index + 1}</td>
+            <td>
+                <div style="font-weight: 600;">${player.name}</div>
+                <div style="font-size: 11px; color: var(--text-secondary);">${player.date}</div>
+            </td>
+            <td><strong>${player.score}</strong></td>
+            <td>${player.category}</td>
+        `;
+        tbody.appendChild(row);
     });
 }
 
@@ -381,19 +488,31 @@ function calculateFinalScore() {
 function endGame() {
     const finalScore = calculateFinalScore();
     const category = 
-        gameData.metrics.profit > 1500 ? 'Unicórnio' :
-        gameData.metrics.impact > 100 ? 'Green Leader' :
-        gameData.metrics.team > 120 ? 'Team Champion' :
-        'Balanced CEO';
+        gameData.metrics.profit > 1500 ? '🦄 Unicórnio' :
+        gameData.metrics.impact > 100 ? '💚 Green Leader' :
+        gameData.metrics.team > 120 ? '👥 Team Champion' :
+        '⚖️ Balanced CEO';
     
-    // Adicionar jogador ao leaderboard
-    gameData.leaderboard.push({
+    // Criar entrada no leaderboard
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    
+    const playerEntry = {
         name: gameData.playerName,
         score: finalScore,
-        category: category
-    });
-    gameData.leaderboard.sort((a, b) => b.score - a.score);
-    gameData.leaderboard = gameData.leaderboard.slice(0, 10); // Top 10
+        category: category,
+        date: dateStr,
+        profitFinal: gameData.metrics.profit,
+        impactFinal: gameData.metrics.impact,
+        teamFinal: gameData.metrics.team
+    };
+    
+    // Adicionar ao leaderboard global
+    globalLeaderboard.push(playerEntry);
+    globalLeaderboard.sort((a, b) => b.score - a.score);
+    
+    // Salvar no localStorage
+    saveLeaderboard();
     
     // Mostrar resultado
     const gameStatus = document.getElementById('game-status');
@@ -406,44 +525,35 @@ function endGame() {
             Score: ${finalScore}
         </div>
         <div style="text-align: left; margin: 20px 0; font-size: 14px; color: var(--text-secondary);">
-            <p>💰 Lucro: ${gameData.metrics.profit}</p>
-            <p>🌍 Impacto: ${gameData.metrics.impact}</p>
-            <p>👥 Equipe: ${gameData.metrics.team}</p>
+            <p>💰 Lucro Final: ${gameData.metrics.profit}</p>
+            <p>🌍 Impacto Final: ${gameData.metrics.impact}</p>
+            <p>👥 Equipe Final: ${gameData.metrics.team}</p>
         </div>
-        <button class="btn btn-primary" onclick="location.reload()">Jogar Novamente</button>
-        <button class="btn btn-primary" onclick="openLeaderboard()" style="margin-left: 10px;">Ver Ranking</button>
+        <div style="margin: 20px 0; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 10px; border-left: 3px solid var(--primary);">
+            <p style="margin: 0; font-size: 12px; color: var(--text-secondary);">Você está em:</p>
+            <p style="margin: 5px 0 0 0; font-size: 18px; font-weight: 700; color: var(--primary);">#${globalLeaderboard.findIndex(p => p.name === gameData.playerName) + 1} no Ranking Global</p>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-primary" onclick="location.reload()">Jogar Novamente</button>
+            <button class="btn btn-primary" onclick="openLeaderboard()" style="background: var(--secondary);">Ver Ranking</button>
+        </div>
     `;
     gameStatus.style.display = 'block';
     
-    // Atualizar leaderboard global
-    updateLeaderboard();
+    // Limpar localStorage após salvar no leaderboard
+    localStorage.removeItem('ecoStartupTycoonGame');
 }
 
 function openLeaderboard() {
     const modal = document.getElementById('leaderboard-modal');
     modal.classList.add('active');
+    loadLeaderboard(); // Carregar dados mais recentes
     updateLeaderboard();
 }
 
 function closeLeaderboard() {
     const modal = document.getElementById('leaderboard-modal');
     modal.classList.remove('active');
-}
-
-function updateLeaderboard() {
-    const tbody = document.getElementById('leaderboard-tbody');
-    tbody.innerHTML = '';
-    
-    gameData.leaderboard.forEach((player, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td class="rank">#${index + 1}</td>
-            <td>${player.name}</td>
-            <td><strong>${player.score}</strong></td>
-            <td>${player.category}</td>
-        `;
-        tbody.appendChild(row);
-    });
 }
 
 // ==================== LOCAL STORAGE ====================
@@ -453,13 +563,20 @@ function saveGame() {
 }
 
 function loadGame() {
+    // Carregar leaderboard global primeiro
+    loadLeaderboard();
+    
     const saved = localStorage.getItem('ecoStartupTycoonGame');
     if (saved) {
         const loaded = JSON.parse(saved);
         Object.assign(gameData, loaded);
-        initGame();
+        renderScenario();
+        updateMetricsDisplay();
+        updateLeaderboardMini();
     } else {
-        initGame();
+        // Primeira vez jogando - mostrar tutorial
+        updateLeaderboardMini();
+        showTutorial();
     }
 }
 

@@ -539,6 +539,205 @@ html, body {
     font-size: 16px;
 }
 
+/* ==================== TUTORIAL MODAL ==================== */
+
+.tutorial-content {
+    max-width: 600px !important;
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.tutorial-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 40px 30px;
+    text-align: center;
+    border-bottom: none;
+}
+
+.tutorial-header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.tutorial-slides {
+    position: relative;
+    min-height: 400px;
+    padding: 40px 30px;
+}
+
+.tutorial-slide {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+    text-align: center;
+}
+
+.tutorial-slide.active {
+    display: block;
+}
+
+.slide-icon {
+    font-size: 60px;
+    margin-bottom: 20px;
+    animation: slideDown 0.6s ease-out;
+}
+
+.tutorial-slide h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+.tutorial-slide p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+/* Metrics Tutorial Cards */
+.metrics-tutorial {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.metric-tutorial-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 15px;
+    transition: all 0.3s ease;
+}
+
+.metric-tutorial-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary);
+    transform: translateY(-5px);
+}
+
+.metric-tutorial-icon {
+    font-size: 36px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.metric-tutorial-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.metric-tutorial-card p {
+    font-size: 12px;
+    margin: 0;
+}
+
+/* How to Play Steps */
+.how-to-play {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 25px;
+    text-align: left;
+}
+
+.step {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid var(--primary);
+}
+
+.step-number {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.step p {
+    margin: 0;
+    text-align: left;
+}
+
+.step strong {
+    color: var(--primary);
+}
+
+/* Objective Box */
+.objective-box {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: left;
+}
+
+.objective-box p {
+    margin: 8px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+/* Tutorial Controls */
+.tutorial-controls {
+    padding: 30px;
+    border-top: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.slide-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.indicator.active {
+    background: var(--primary);
+    width: 14px;
+    height: 14px;
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+.tutorial-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.btn-secondary {
+    background: var(--bg-tertiary);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--text-secondary);
+}
+
 /* ==================== BUTTONS ==================== */
 
 .btn {

@@ -117,6 +117,100 @@
             </section>
         </main>
 
+        <!-- Tutorial Modal -->
+        <div class="modal" id="tutorial-modal">
+            <div class="modal-content tutorial-content">
+                <div class="tutorial-header">
+                    <h1>🌱 Bem-vindo ao EcoStartup Tycoon!</h1>
+                </div>
+                
+                <div class="tutorial-slides">
+                    <!-- Slide 1: Introdução -->
+                    <div class="tutorial-slide active" id="slide-1">
+                        <div class="slide-icon">🚀</div>
+                        <h2>Você é CEO de uma Startup Tech</h2>
+                        <p>Você acabou de fundar uma startup de tecnologia e precisa tomar decisões estratégicas a cada trimestre (rodada).</p>
+                        <p style="margin-top: 15px; color: var(--text-secondary); font-size: 14px;">O desafio? Equilibrar lucro, impacto ambiental e bem-estar da equipe!</p>
+                    </div>
+
+                    <!-- Slide 2: As 3 Métricas -->
+                    <div class="tutorial-slide" id="slide-2">
+                        <div class="slide-icon">📊</div>
+                        <h2>As 3 Métricas Essenciais</h2>
+                        <div class="metrics-tutorial">
+                            <div class="metric-tutorial-card">
+                                <span class="metric-tutorial-icon">💰</span>
+                                <h3>Lucro</h3>
+                                <p>Saúde financeira da startup. Investidores exigem crescimento!</p>
+                            </div>
+                            <div class="metric-tutorial-card">
+                                <span class="metric-tutorial-icon">🌍</span>
+                                <h3>Impacto</h3>
+                                <p>Pegada de carbono. Ser sustentável é responsabilidade!</p>
+                            </div>
+                            <div class="metric-tutorial-card">
+                                <span class="metric-tutorial-icon">👥</span>
+                                <h3>Equipe</h3>
+                                <p>Satisfação dos funcionários. Pessoas felizes = melhor trabalho!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Como Funciona -->
+                    <div class="tutorial-slide" id="slide-3">
+                        <div class="slide-icon">🎮</div>
+                        <h2>Como Jogar</h2>
+                        <div class="how-to-play">
+                            <div class="step">
+                                <div class="step-number">1️⃣</div>
+                                <p><strong>Receba um cenário</strong> com 3 opções de decisão</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2️⃣</div>
+                                <p><strong>Escolha uma opção</strong> (A, B ou C)</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3️⃣</div>
+                                <p><strong>Veja o impacto</strong> nas 3 métricas</p>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4️⃣</div>
+                                <p><strong>Equilibre tudo</strong> por 8 rodadas</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Objetivo -->
+                    <div class="tutorial-slide" id="slide-4">
+                        <div class="slide-icon">🏆</div>
+                        <h2>Seu Objetivo</h2>
+                        <p><strong>Não há resposta "certa"</strong> — tudo envolve trade-offs!</p>
+                        <p style="margin: 20px 0; color: var(--text-secondary);">O desafio é encontrar o equilíbrio perfeito entre as 3 métricas.</p>
+                        <div class="objective-box">
+                            <p>📈 Lucro muito alto = Unicórnio</p>
+                            <p>🌍 Impacto muito alto = Green Leader</p>
+                            <p>👥 Equipe muito feliz = Team Champion</p>
+                            <p>⚖️ Equilibrio perfeito = Balanced CEO ⭐</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tutorial-controls">
+                    <div class="slide-indicators">
+                        <span class="indicator active" onclick="goToSlide(1)"></span>
+                        <span class="indicator" onclick="goToSlide(2)"></span>
+                        <span class="indicator" onclick="goToSlide(3)"></span>
+                        <span class="indicator" onclick="goToSlide(4)"></span>
+                    </div>
+                    <div class="tutorial-buttons">
+                        <button class="btn btn-secondary" id="prev-btn" onclick="prevSlide()" style="display: none;">← Anterior</button>
+                        <button class="btn btn-primary" id="next-btn" onclick="nextSlide()">Próximo →</button>
+                        <button class="btn btn-primary" id="start-btn" onclick="startGame()" style="display: none;">Vamos Jogar! 🚀</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Full Leaderboard (Modal) -->
         <div class="modal" id="leaderboard-modal">
             <div class="modal-content">
